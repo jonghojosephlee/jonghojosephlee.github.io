@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Jongho Lee is a Ph.D. student in AIRIS Lab at KAIST, researching psychoacoustics, auditory AR/VR, spatial audio, and responsive sound behavior."
+      content="Jongho Lee is a Ph.D. student at AIRIS Lab, KAIST, researching how sound gives virtual objects and spaces behavior, presence, and meaning."
     />
-    <meta name="theme-color" content="#f4f3ef" />
-    <meta property="og:title" content="Jongho Lee — XR Audio Research" />
+    <meta name="theme-color" content="#07090d" />
+    <meta property="og:title" content="Jongho Lee — Auditory AR/VR Research" />
     <meta
       property="og:description"
-      content="Ph.D. research in psychoacoustics, auditory AR/VR, spatial audio, and responsive sound behavior."
+      content="Research across psychoacoustics, spatial audio, and responsive sound behavior in XR."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://jonghojosephlee.github.io/" />
-    <title>Jongho Lee — XR Audio Research</title>
+    <meta property="og:image" content="https://jonghojosephlee.github.io/assets/meta-object.png" />
+    <title>Jongho Lee — Auditory AR/VR Research</title>
     <link rel="canonical" href="https://jonghojosephlee.github.io/" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/91815996?v=4" />
     <link rel="stylesheet" href="./styles.css" />
@@ -24,140 +25,116 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="page">
-      <header class="site-header">
-        <a class="wordmark" href="#main" aria-label="Jongho Lee, home">JL<span>.</span></a>
-
-        <nav aria-label="Primary navigation">
-          <a href="https://airislab.kaist.ac.kr/" target="_blank" rel="noreferrer">Lab ↗</a>
-          <a href="https://github.com/jonghojosephlee" target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a class="music-link" href="https://jonghojosephlee.github.io/music/">Music ↗</a>
-        </nav>
+    <main class="scene" id="main">
+      <header class="identity">
+        <p class="eyebrow">Ph.D. student · AIRIS Lab, KAIST</p>
+        <h1>Jongho Lee</h1>
+        <p class="introduction">
+          Hi, I’m Jongho. I study how sound gives virtual objects and spaces
+          <em>behavior, presence, and meaning.</em>
+        </p>
       </header>
 
-      <main class="screen" id="main">
-        <section class="intro" aria-labelledby="intro-title">
-          <p class="identity">Jongho Lee</p>
-          <h1 id="intro-title">
-            Hi! I’m a Ph.D. student at
-            <a href="https://airislab.kaist.ac.kr/" target="_blank" rel="noreferrer">AIRIS Lab</a>,
-            KAIST.
-          </h1>
+      <nav class="external-links" aria-label="External links">
+        <a href="https://airislab.kaist.ac.kr/" target="_blank" rel="noreferrer">AIRIS Lab <span>↗</span></a>
+        <a href="https://github.com/jonghojosephlee" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+        <a href="https://jonghojosephlee.github.io/music/">Music <span>↗</span></a>
+      </nav>
 
-          <div class="bio">
-            <p>
-              I’m interested in making virtual objects and spaces feel coherent, interactive, and
-              alive through sound.
-            </p>
-            <p>
-              My research connects psychoacoustics, auditory AR/VR, spatial audio, and generative
-              tools. Recently, I have been focusing on how people expect virtual objects to
-              sound—and how those expectations can become responsive sound behavior.
-            </p>
-          </div>
+      <p class="scene-guide" aria-hidden="true">Move the field · choose 01—04</p>
 
-          <p class="affiliation">
-            Graduate School of Culture Technology · KAIST<br />
-            Daejeon, Republic of Korea
-          </p>
-        </section>
+      <section class="object-stage" aria-label="Interactive research object">
+        <div class="field field-one" aria-hidden="true"></div>
+        <div class="field field-two" aria-hidden="true"></div>
+        <div class="field field-three" aria-hidden="true"></div>
+        <div class="field-glow" aria-hidden="true"></div>
 
-        <section class="research" aria-labelledby="research-title">
-          <header class="research-header">
-            <h2 id="research-title">Research</h2>
-            <span>Select a line of work</span>
-          </header>
+        <button class="meta-object" type="button" aria-label="Hear the meta-object">
+          <span class="pulse-ring pulse-ring-one" aria-hidden="true"></span>
+          <span class="pulse-ring pulse-ring-two" aria-hidden="true"></span>
+          <img
+            src="./assets/meta-object.png"
+            alt="An abstract virtual object combining translucent cobalt glass, bronze, and folded black surfaces"
+          />
+        </button>
 
-          <div class="project-list" role="tablist" aria-label="Research projects">
-            <button
-              class="project-button is-active"
-              type="button"
-              role="tab"
-              aria-selected="true"
-              aria-controls="project-detail"
-              data-index="01"
-              data-status="Ongoing Ph.D. research"
-              data-title="Dissertation direction"
-              data-description="How visual form and interaction create sound expectations—and how those expectations can become behavior that responds to action and context in XR."
-              data-tags="Sound expectation|Mismatch tolerance|Sound behavior"
-            >
-              <span>01</span><strong>Dissertation direction</strong><i aria-hidden="true">→</i>
-            </button>
+        <p class="object-question">How should a virtual object sound?</p>
+        <button class="pulse-control" type="button">
+          <span class="pulse-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Hear the object</span>
+        </button>
+      </section>
 
-            <button
-              class="project-button"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="project-detail"
-              data-index="02"
-              data-status="Working Unity XR prototype"
-              data-title="Timbre Change"
-              data-description="Authoring material-retargeted object sounds through direct XR interaction, then revising them by listening to the sound in action."
-              data-tags="Material & timbre|Generative audio|Direct interaction"
-            >
-              <span>02</span><strong>Timbre Change</strong><i aria-hidden="true">→</i>
-            </button>
+      <nav class="research-map" aria-label="Selected research">
+        <button
+          class="research-node node-dissertation is-active"
+          type="button"
+          aria-pressed="true"
+          data-index="01"
+          data-status="Ongoing Ph.D. research"
+          data-title="Dissertation"
+          data-description="How visual form and interaction shape the sounds people expect from XR objects—and how those expectations can become responsive sound behavior."
+        >
+          <span class="node-index">01</span>
+          <span class="node-copy"><strong>Dissertation</strong><small>Meta-object sound</small></span>
+        </button>
 
-            <button
-              class="project-button"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="project-detail"
-              data-index="03"
-              data-status="KAIST–NYU research project"
-              data-title="MetaMuseum"
-              data-description="A WebXR gallery project exploring how spatial auditory traces of previous visitors shape the feeling of being alone, together, or watched."
-              data-tags="WebXR|Spatial audio|Museum experience"
-            >
-              <span>03</span><strong>MetaMuseum</strong><i aria-hidden="true">→</i>
-            </button>
+        <button
+          class="research-node node-timbre"
+          type="button"
+          aria-pressed="false"
+          data-index="02"
+          data-status="Dissertation track · in progress"
+          data-title="Timbre Change"
+          data-description="A working Unity XR prototype for authoring material-retargeted object sounds through direct interaction. The study is ongoing."
+        >
+          <span class="node-index">02</span>
+          <span class="node-copy"><strong>Timbre Change</strong><small>Material · interaction</small></span>
+        </button>
 
-            <button
-              class="project-button"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="project-detail"
-              data-index="04"
-              data-status="Ongoing experiment build"
-              data-title="Action-Aware Reverberation"
-              data-description="A controlled VR study asking how action mode and sound intensity change the reverberation people choose for a virtual auditorium."
-              data-tags="Embodied VR|Psychoacoustics|Reverberation"
-            >
-              <span>04</span><strong>Action-Aware Reverb</strong><i aria-hidden="true">→</i>
-            </button>
-          </div>
+        <button
+          class="research-node node-museum"
+          type="button"
+          aria-pressed="false"
+          data-index="03"
+          data-status="Parallel research project"
+          data-title="MetaMuseum"
+          data-description="A WebXR museum project exploring what spatial sound can communicate about objects, places, and other people."
+        >
+          <span class="node-index">03</span>
+          <span class="node-copy"><strong>MetaMuseum</strong><small>Space · memory</small></span>
+        </button>
 
-          <article class="project-detail" id="project-detail" role="tabpanel" aria-live="polite">
-            <div class="detail-meta">
-              <span id="detail-index">01</span>
-              <span id="detail-status">Ongoing Ph.D. research</span>
-            </div>
-            <h3 id="detail-title">Dissertation direction</h3>
-            <p id="detail-description">
-              How visual form and interaction create sound expectations—and how those expectations
-              can become behavior that responds to action and context in XR.
-            </p>
-            <div class="detail-bottom">
-              <ul id="detail-tags" aria-label="Research themes">
-                <li>Sound expectation</li>
-                <li>Mismatch tolerance</li>
-                <li>Sound behavior</li>
-              </ul>
-              <div class="signal" aria-hidden="true">
-                <i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-          </article>
-        </section>
-      </main>
+        <button
+          class="research-node node-reverb"
+          type="button"
+          aria-pressed="false"
+          data-index="04"
+          data-status="Ongoing VR study"
+          data-title="Action-Aware Reverb"
+          data-description="An experiment asking how action mode and sound intensity change the reverberation people choose in a virtual auditorium."
+        >
+          <span class="node-index">04</span>
+          <span class="node-copy"><strong>Reverb</strong><small>Action · space</small></span>
+        </button>
+      </nav>
 
-      <footer class="site-footer">
-        <p>Sound should be part of the object’s behavior.</p>
-        <p>© <span id="year">2026</span> Jongho Lee</p>
+      <section class="active-note" aria-live="polite" aria-atomic="true">
+        <div class="note-meta">
+          <span id="note-index">01</span>
+          <span id="note-status">Ongoing Ph.D. research</span>
+        </div>
+        <h2 id="note-title">Dissertation</h2>
+        <p id="note-description">
+          How visual form and interaction shape the sounds people expect from XR objects—and how
+          those expectations can become responsive sound behavior.
+        </p>
+      </section>
+
+      <footer class="scene-footer">
+        <span>Sound as behavior, not decoration.</span>
+        <span>© <span id="year">2026</span></span>
       </footer>
-    </div>
+    </main>
   </body>
 </html>
