@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Portfolio of Jongho Lee, a spatial audio and sound researcher studying sound expectation, sound behavior, and AI timbre generation in XR."
+      content="Portfolio of Jongho Lee, a spatial audio and sound researcher exploring auditory perception and interaction-responsive AI sound generation in XR."
     />
     <meta name="theme-color" content="#050505" />
     <meta property="og:title" content="Jongho Lee — Spatial Audio &amp; Sound Researcher" />
@@ -15,8 +15,8 @@
     <title>Jongho Lee — Spatial Audio &amp; Sound Researcher</title>
     <link rel="canonical" href="https://jonghojosephlee.github.io/" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/91815996?v=4" />
-    <link rel="stylesheet" href="./styles.css?v=23" />
-    <script src="./script.js?v=14" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=24" />
+    <script src="./script.js?v=15" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -50,14 +50,21 @@
           <div class="intro-block">
             <p class="eyebrow">Hi, I’m Jongho.</p>
             <h1 id="page-title">
-              Spatial Audio<br />
-              <em>&amp; Sound</em><br />
+              Spatial Audio<br class="desktop-title-break" />
+              <em>&amp; Sound</em><br class="desktop-title-break" />
               Researcher
             </h1>
           </div>
 
-          <section class="skills-block" aria-labelledby="skills-title">
-            <p class="section-label" id="skills-title">Skills</p>
+          <div class="mobile-dj-art" aria-hidden="true">
+            <img src="./assets/dj-sketch.png" alt="" />
+          </div>
+
+          <details class="skills-block profile-detail" data-mobile-detail open>
+            <summary class="profile-detail-summary">
+              <span class="section-label" id="skills-title">Skills</span>
+              <span class="detail-toggle" aria-hidden="true"></span>
+            </summary>
             <ul class="skills-list">
               <li>Unity 3D</li>
               <li>Wwise</li>
@@ -67,28 +74,38 @@
               <li>Spatial Audio Mixing</li>
               <li>Audio AI</li>
             </ul>
-          </section>
+          </details>
 
           <section class="about-block" aria-labelledby="about-title">
             <p class="section-label" id="about-title">About</p>
-            <p>
+            <p class="about-copy about-copy-desktop">
               Hi! I’m a Ph.D. student at
               <a href="https://airislab.kaist.ac.kr/" target="_blank" rel="noreferrer">AIRIS Lab, KAIST</a>.
-              My dissertation studies the sound expectations created by virtual and meta-objects,
-              how far sound can depart from those expectations while remaining coherent, and how
-              this can guide interaction-sensitive sound behavior and AI-based timbre generation in XR.
+              My research explores auditory perception and sound expectations in XR, especially how
+              virtual and meta-objects should sound as people interact with them. I’m interested in
+              spatial audio and AI-based sound generation, with a recent focus on creating sound
+              behaviors that respond to object properties, user actions, and changing virtual contexts.
+            </p>
+            <p class="about-copy about-copy-mobile">
+              I’m a Ph.D. student at
+              <a href="https://airislab.kaist.ac.kr/" target="_blank" rel="noreferrer">AIRIS Lab, KAIST</a>.
+              My research explores how AI can generate sounds for virtual and meta-objects that
+              respond to user interaction in XR.
             </p>
           </section>
 
-          <section class="keywords-block" aria-labelledby="research-title">
-            <p class="section-label" id="research-title">Research Keywords</p>
+          <details class="keywords-block profile-detail" data-mobile-detail open>
+            <summary class="profile-detail-summary">
+              <span class="section-label" id="research-title">Research Keywords</span>
+              <span class="detail-toggle" aria-hidden="true"></span>
+            </summary>
             <ul class="research-keywords">
               <li>Psychoacoustics</li>
               <li>Auditory Perception in XR</li>
               <li>Spatial Audio in XR</li>
               <li>AI Timbre Generation</li>
             </ul>
-          </section>
+          </details>
 
           <nav class="work-index" aria-label="Selected work">
             <button
@@ -137,11 +154,19 @@
                 <h2 id="music-title">Butterfly Zone</h2>
               </div>
               <a
+                class="music-profile-link"
                 href="https://soundcloud.com/butterflybass"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Open Butterfly Zone on SoundCloud in a new tab"
               >Full profile ↗</a>
+              <a
+                class="next-track-short"
+                href="https://soundcloud.com/butterflybass/butterfly-zone-x-loxxey-bass-distortion"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Play the next track, Bass Distortion, on SoundCloud"
+              >Next · Bass Distortion</a>
             </header>
             <div class="queue-preview" aria-label="Next tracks">
               <span>Up next</span>

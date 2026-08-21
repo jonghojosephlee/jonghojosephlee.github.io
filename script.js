@@ -4,9 +4,40 @@ const projectPanelGroup = document.querySelector(".project-panels");
 const projectClose = document.querySelector(".project-close");
 const musicCatalogFrame = document.querySelector("#music-catalog-frame");
 const year = document.querySelector("#year");
+const mobileProfileDetails = [...document.querySelectorAll("[data-mobile-detail]")];
+const mobileProfileQuery = window.matchMedia("(max-width: 680px)");
 let projectOpener = null;
 
 if (year) year.textContent = new Date().getFullYear();
+
+const syncProfileDetails = () => {
+  mobileProfileDetails.forEach((detail) => {
+    const summary = detail.querySelector("summary");
+    detail.open = !mobileProfileQuery.matches;
+    if (summary) summary.tabIndex = mobileProfileQuery.matches ? 0 : -1;
+  });
+};
+
+mobileProfileDetails.forEach((detail) => {
+  const summary = detail.querySelector("summary");
+  summary?.addEventListener("click", (event) => {
+    if (!mobileProfileQuery.matches) event.preventDefault();
+  });
+
+  detail.addEventListener("toggle", () => {
+    if (!mobileProfileQuery.matches || !detail.open) return;
+    mobileProfileDetails.forEach((item) => {
+      if (item !== detail) item.open = false;
+    });
+  });
+});
+
+syncProfileDetails();
+if (typeof mobileProfileQuery.addEventListener === "function") {
+  mobileProfileQuery.addEventListener("change", syncProfileDetails);
+} else {
+  mobileProfileQuery.addListener(syncProfileDetails);
+}
 
 const loadMusicCatalog = () => {
   if (!musicCatalogFrame || musicCatalogFrame.hasAttribute("src")) return;

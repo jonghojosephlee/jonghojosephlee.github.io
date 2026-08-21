@@ -36,6 +36,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body.project-overlay-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 ::selection {
   background: var(--accent);
   color: #fff;
@@ -223,6 +228,27 @@ button {
   font-weight: inherit;
 }
 
+.mobile-dj-art,
+.about-copy-mobile {
+  display: none;
+}
+
+.profile-detail-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  pointer-events: none;
+}
+
+.profile-detail-summary::-webkit-details-marker {
+  display: none;
+}
+
+.detail-toggle {
+  display: none;
+}
+
 .skills-block,
 .about-block,
 .keywords-block,
@@ -257,7 +283,7 @@ button {
   content: "—";
 }
 
-.about-block > p:last-child {
+.about-copy {
   max-width: 50ch;
   margin: 0.55rem 0 0;
   color: var(--soft);
@@ -379,8 +405,8 @@ button {
   display: grid;
   min-width: 0;
   align-self: center;
-  padding-left: clamp(1.6rem, 3vw, 3rem);
-  border-left: 1px solid var(--line);
+  padding-left: 0;
+  border-left: 0;
 }
 
 .dj-art {
@@ -393,19 +419,24 @@ button {
 
 .dj-art img {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
+  clip-path: inset(0 4px 0 0);
   filter: invert(1) grayscale(1) contrast(1.28);
   opacity: 0.96;
+  transform: translateX(-50%);
   transition: transform 300ms var(--ease);
 }
 
 .media-column:hover .dj-art img {
-  transform: translateY(-2px);
+  transform: translate(-50%, -2px);
 }
 
 .music-surface {
@@ -450,6 +481,10 @@ button {
 .music-heading a:hover,
 .music-heading a:focus-visible {
   color: var(--ink);
+}
+
+.music-heading .next-track-short {
+  display: none;
 }
 
 .queue-preview {
@@ -818,6 +853,7 @@ button {
 .site-links a:focus-visible,
 .site-links button:focus-visible,
 .identity:focus-visible,
+.profile-detail-summary:focus-visible,
 .work-link:focus-visible,
 .music-heading a:focus-visible,
 .queue-preview a:focus-visible,
@@ -858,7 +894,7 @@ button {
     font-size: clamp(2.9rem, 5vw, 4.1rem);
   }
 
-  .about-block > p:last-child {
+  .about-copy {
     font-size: 0.8rem;
   }
 
@@ -914,7 +950,7 @@ button {
 
   .skills-list,
   .research-keywords,
-  .about-block > p:last-child {
+  .about-copy {
     margin-top: 0.38rem;
   }
 
@@ -923,7 +959,7 @@ button {
     font-size: 0.75rem;
   }
 
-  .about-block > p:last-child {
+  .about-copy {
     font-size: 0.8rem;
     line-height: 1.42;
   }
@@ -948,12 +984,18 @@ button {
 @media (max-width: 860px) {
   html,
   body {
-    overflow: hidden;
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .portfolio {
+    height: auto;
+    min-height: 100svh;
     padding: max(0.75rem, env(safe-area-inset-top)) 1rem
-      max(0.45rem, env(safe-area-inset-bottom));
+      max(0rem, env(safe-area-inset-bottom));
+    overflow: visible;
   }
 
   .site-header {
@@ -992,7 +1034,7 @@ button {
     padding-top: 0.5rem;
   }
 
-  .about-block > p:last-child {
+  .about-copy {
     max-width: none;
     font-size: 0.82rem;
   }
@@ -1006,11 +1048,25 @@ button {
   }
 
   .soundcloud-frame {
-    height: clamp(12rem, 24vh, 14rem);
+    height: clamp(12rem, 24vh, 13rem);
   }
 }
 
 @media (max-width: 680px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .portfolio {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
   .identity strong {
     font-size: 1rem;
   }
@@ -1031,8 +1087,10 @@ button {
   }
 
   .stage {
-    gap: 0.45rem;
+    gap: 0.35rem;
+    align-content: start;
     padding-top: 0.45rem;
+    padding-bottom: 0;
   }
 
   .eyebrow,
@@ -1047,7 +1105,36 @@ button {
     margin-top: 0.55rem;
     font-size: clamp(2.05rem, 9.8vw, 2.7rem);
     letter-spacing: -0.05em;
-    line-height: 0.9;
+    line-height: 0.94;
+  }
+
+  .desktop-title-break {
+    display: none;
+  }
+
+  .mobile-dj-art {
+    position: relative;
+    display: block;
+    width: min(100%, 13rem);
+    height: clamp(5.75rem, 11.5svh, 6.25rem);
+    margin: 0.4rem auto 0;
+    overflow: hidden;
+  }
+
+  .mobile-dj-art img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    clip-path: inset(0 4px 0 0);
+    filter: invert(1) grayscale(1) contrast(1.28);
+    opacity: 0.96;
+    transform: translateX(-50%);
   }
 
   .skills-block,
@@ -1073,8 +1160,8 @@ button {
 
   .skills-list li,
   .research-keywords li {
-    font-size: 0.7rem;
-    line-height: 1.25;
+    font-size: 0.78rem;
+    line-height: 1.35;
   }
 
   .skills-list li::before,
@@ -1082,10 +1169,47 @@ button {
     margin-right: 0.3rem;
   }
 
-  .about-block > p:last-child {
+  .about-copy-desktop {
+    display: none;
+  }
+
+  .about-copy-mobile {
+    display: block;
+  }
+
+  .about-copy {
     margin-top: 0.35rem;
-    font-size: 0.74rem;
-    line-height: 1.4;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .profile-detail {
+    padding-top: 0;
+  }
+
+  .profile-detail-summary {
+    min-height: 2.75rem;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .detail-toggle {
+    display: inline-flex;
+    min-width: 3.4rem;
+    justify-content: flex-end;
+    color: var(--quiet);
+    font-size: 0.65rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+  }
+
+  .detail-toggle::before {
+    content: "View +";
+  }
+
+  .profile-detail[open] .detail-toggle::before {
+    color: var(--accent);
+    content: "Close −";
   }
 
   .work-link {
@@ -1124,12 +1248,12 @@ button {
   }
 
   .soundcloud-frame {
-    height: 9.75rem;
+    height: 7.25rem;
   }
 
   .queue-preview {
     display: flex;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     align-items: center;
     gap: 0.65rem;
     overflow: hidden;
@@ -1211,11 +1335,11 @@ button {
 
   .site-links a,
   .site-links button {
-    min-height: 2.4rem;
+    min-height: 2.75rem;
   }
 
   .stage {
-    gap: 0.2rem;
+    gap: 0;
     padding-top: 0.3rem;
     padding-bottom: 0.2rem;
   }
@@ -1223,6 +1347,11 @@ button {
   .intro-block h1 {
     margin-top: 0.35rem;
     font-size: clamp(1.72rem, 8vw, 2.05rem);
+  }
+
+  .mobile-dj-art {
+    height: 5rem;
+    margin-top: 0.2rem;
   }
 
   .skills-block,
@@ -1235,26 +1364,40 @@ button {
 
   .skills-list,
   .research-keywords,
-  .about-block > p:last-child {
+  .about-copy {
     margin-top: 0.25rem;
   }
 
   .skills-list li,
   .research-keywords li {
-    font-size: 0.7rem;
+    font-size: 0.78rem;
   }
 
-  .about-block > p:last-child {
-    font-size: 0.72rem;
-    line-height: 1.32;
+  .about-copy {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .profile-detail-summary {
+    min-height: 2.75rem;
+  }
+
+  .profile-detail {
+    margin-top: 0.25rem;
+    padding-top: 0;
   }
 
   .work-link {
+    grid-template-columns: minmax(0, 1fr) 0.75rem;
     min-height: 2.8rem;
   }
 
-  .dj-art {
+  .work-link > span {
     display: none;
+  }
+
+  .work-link strong {
+    font-size: 0.8rem;
   }
 
   .music-heading {
@@ -1262,13 +1405,20 @@ button {
   }
 
   .music-heading a {
-    min-height: 2rem;
+    min-height: 2.75rem;
+  }
+
+  .music-heading .music-profile-link {
+    display: none;
+  }
+
+  .music-heading .next-track-short {
+    display: inline-flex;
+    font-size: 0.68rem;
   }
 
   .queue-preview {
-    display: flex;
-    min-height: 2rem;
-    font-size: 0.62rem;
+    display: none;
   }
 
   .soundcloud-frame {
@@ -1294,6 +1444,14 @@ button {
     height: auto;
     min-height: 100svh;
     overflow: visible;
+  }
+
+  .work-link {
+    grid-template-columns: minmax(0, 1fr) 0.75rem;
+  }
+
+  .work-link > span {
+    display: none;
   }
 }
 
