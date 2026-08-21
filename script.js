@@ -104,6 +104,44 @@ const syncCompactState = () => {
 compactLayout.addEventListener("change", syncCompactState);
 syncCompactState();
 
+const musicCatalogOpen = document.querySelector("#music-catalog-open");
+const musicCatalog = document.querySelector("#music-catalog");
+const musicCatalogClose = document.querySelector("#music-catalog-close");
+const musicCatalogFrame = document.querySelector("#music-catalog-frame");
+
+musicCatalogOpen?.addEventListener("click", () => {
+  if (!musicCatalog || musicCatalog.open) return;
+
+  if (musicCatalogFrame && !musicCatalogFrame.hasAttribute("src")) {
+    musicCatalogFrame.src = musicCatalogFrame.dataset.src || "";
+  }
+  musicCatalogOpen.setAttribute("aria-expanded", "true");
+  musicCatalog.showModal();
+  window.setTimeout(() => musicCatalogClose?.focus(), 100);
+});
+
+musicCatalogClose?.addEventListener("click", () => musicCatalog?.close());
+
+musicCatalog?.addEventListener("click", (event) => {
+  if (event.target === musicCatalog) musicCatalog.close();
+});
+
+musicCatalog?.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  musicCatalog.close();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || !musicCatalog?.open) return;
+  event.preventDefault();
+  musicCatalog.close();
+});
+
+musicCatalog?.addEventListener("close", () => {
+  musicCatalogOpen?.setAttribute("aria-expanded", "false");
+  musicCatalogOpen?.focus();
+});
+
 const publicationTabs = [...document.querySelectorAll("[data-publication-group]")];
 const publicationGroups = [...document.querySelectorAll(".publication-group")];
 

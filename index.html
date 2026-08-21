@@ -18,8 +18,8 @@
     <title>Jongho Lee — Spatial Audio &amp; Sound Researcher</title>
     <link rel="canonical" href="https://jonghojosephlee.github.io/" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/91815996?v=4" />
-    <link rel="stylesheet" href="./styles.css?v=21" />
-    <script src="./script.js?v=12" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=22" />
+    <script src="./script.js?v=13" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -88,12 +88,21 @@
                 <strong>Butterfly Zone</strong>
                 <span>All public tracks</span>
               </div>
-              <a
-                href="https://soundcloud.com/butterflybass"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Open all Butterfly Zone tracks on SoundCloud in a new tab"
-              >SoundCloud ↗</a>
+              <div class="soundcloud-player__actions">
+                <button
+                  id="music-catalog-open"
+                  type="button"
+                  aria-controls="music-catalog"
+                  aria-expanded="false"
+                  aria-haspopup="dialog"
+                >Browse tracks</button>
+                <a
+                  href="https://soundcloud.com/butterflybass"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Open Butterfly Zone on SoundCloud in a new tab"
+                >Profile ↗</a>
+              </div>
             </div>
             <iframe
               title="Butterfly Zone public tracks on SoundCloud"
@@ -348,5 +357,28 @@
         <a href="mailto:jongstradamus@kaist.ac.kr">Email <span aria-hidden="true">↗</span></a>
       </footer>
     </main>
+
+    <dialog class="music-catalog" id="music-catalog" aria-labelledby="music-catalog-title">
+      <header class="music-catalog__header">
+        <div>
+          <p>Butterfly Zone</p>
+          <h2 id="music-catalog-title">SoundCloud catalog</h2>
+        </div>
+        <div class="music-catalog__actions">
+          <a href="https://soundcloud.com/butterflybass" target="_blank" rel="noreferrer">Profile ↗</a>
+          <button id="music-catalog-close" type="button">Close <span aria-hidden="true">×</span></button>
+        </div>
+      </header>
+      <iframe
+        id="music-catalog-frame"
+        title="All Butterfly Zone public tracks on SoundCloud"
+        width="100%"
+        height="650"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay; encrypted-media"
+        data-src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F768979810&amp;color=%236670ff&amp;auto_play=false&amp;hide_related=true&amp;show_artwork=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false"
+      ></iframe>
+    </dialog>
   </body>
 </html>

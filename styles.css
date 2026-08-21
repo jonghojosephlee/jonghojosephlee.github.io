@@ -352,15 +352,24 @@ button {
   color: var(--ink);
 }
 
-.soundcloud-player__bar > div {
+.soundcloud-player__bar > div:first-child {
   display: flex;
   min-width: 0;
   flex-direction: column;
 }
 
+.soundcloud-player__actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.55rem;
+  margin-left: 0.75rem;
+}
+
 .soundcloud-player__bar strong,
 .soundcloud-player__bar span,
-.soundcloud-player__bar a {
+.soundcloud-player__bar a,
+.soundcloud-player__bar button {
   font-size: 0.58rem;
   letter-spacing: 0.075em;
   line-height: 1.25;
@@ -376,19 +385,29 @@ button {
   color: var(--soft);
 }
 
-.soundcloud-player__bar a {
-  flex: 0 0 auto;
-  margin-left: 0.75rem;
+.soundcloud-player__bar a,
+.soundcloud-player__bar button {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
   color: var(--soft);
+  cursor: pointer;
   transition: color 180ms ease;
 }
 
 .soundcloud-player__bar a:hover,
-.soundcloud-player__bar a:focus-visible {
+.soundcloud-player__bar a:focus-visible,
+.soundcloud-player__bar button:hover,
+.soundcloud-player__bar button:focus-visible {
   color: var(--ink);
 }
 
-.soundcloud-player__bar a:focus-visible {
+.soundcloud-player__bar a:focus-visible,
+.soundcloud-player__bar button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -397,6 +416,103 @@ button {
   display: block;
   width: 100%;
   height: clamp(11rem, 28vh, 15rem);
+  border: 0;
+  background: #ffffff;
+}
+
+.music-catalog {
+  width: min(62rem, calc(100vw - 2rem));
+  height: min(48rem, calc(100svh - 2rem));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--faint);
+  background: var(--black);
+  color: var(--ink);
+}
+
+.music-catalog::backdrop {
+  background: rgba(0, 0, 0, 0.86);
+  backdrop-filter: blur(5px);
+}
+
+.music-catalog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4.1rem;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--faint);
+}
+
+.music-catalog__header p,
+.music-catalog__header h2 {
+  margin: 0;
+}
+
+.music-catalog__header p {
+  color: var(--soft);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.music-catalog__header h2 {
+  margin-top: 0.15rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.music-catalog__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.music-catalog__actions a,
+.music-catalog__actions button {
+  min-height: 2.75rem;
+  padding: 0 0.2rem;
+  border: 0;
+  border-bottom: 1px solid var(--accent);
+  outline: 0;
+  background: transparent;
+  color: var(--soft);
+  cursor: pointer;
+  font-size: 0.65rem;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+.music-catalog__actions a {
+  display: inline-flex;
+  align-items: center;
+}
+
+.music-catalog__actions a:hover,
+.music-catalog__actions a:focus-visible,
+.music-catalog__actions button:hover,
+.music-catalog__actions button:focus-visible {
+  color: var(--ink);
+}
+
+.music-catalog__actions a:focus-visible,
+.music-catalog__actions button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.music-catalog__actions span {
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.music-catalog iframe {
+  display: block;
+  width: 100%;
+  height: calc(100% - 4.1rem);
   border: 0;
   background: #ffffff;
 }
@@ -1329,12 +1445,46 @@ button {
 
   .soundcloud-player__bar strong,
   .soundcloud-player__bar span,
-  .soundcloud-player__bar a {
+  .soundcloud-player__bar a,
+  .soundcloud-player__bar button {
     font-size: 0.5rem;
+  }
+
+  .soundcloud-player__actions {
+    gap: 0.4rem;
+    margin-left: 0.45rem;
   }
 
   .soundcloud-player iframe {
     height: 6.35rem;
+  }
+
+  .music-catalog {
+    width: calc(100vw - 0.8rem);
+    height: calc(100svh - 0.8rem);
+  }
+
+  .music-catalog__header {
+    min-height: 3.7rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .music-catalog__header h2 {
+    font-size: 0.95rem;
+  }
+
+  .music-catalog__actions {
+    gap: 0.55rem;
+  }
+
+  .music-catalog__actions a,
+  .music-catalog__actions button {
+    min-height: 2.45rem;
+    font-size: 0.55rem;
+  }
+
+  .music-catalog iframe {
+    height: calc(100% - 3.7rem);
   }
 
   .project-tab strong {
