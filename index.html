@@ -18,9 +18,8 @@
     <title>Jongho Lee — Spatial Audio &amp; Sound Researcher</title>
     <link rel="canonical" href="https://jonghojosephlee.github.io/" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/91815996?v=4" />
-    <link rel="stylesheet" href="./styles.css?v=20" />
-    <script src="https://w.soundcloud.com/player/api.js" defer></script>
-    <script src="./script.js?v=11" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=21" />
+    <script src="./script.js?v=12" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -44,7 +43,11 @@
             aria-expanded="false"
           >CV</button>
           <a href="https://github.com/jonghojosephlee" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="../music/">Music <span aria-hidden="true">↗</span></a>
+          <a
+            href="https://soundcloud.com/butterflybass"
+            target="_blank"
+            rel="noreferrer"
+          >Music <span aria-hidden="true">↗</span></a>
         </nav>
       </header>
 
@@ -61,10 +64,13 @@
           <section class="skills-block" aria-labelledby="skills-title">
             <p class="section-label" id="skills-title">Skills</p>
             <ul class="skills-list">
-              <li>Unity / C#</li>
-              <li>Python / Audio ML</li>
-              <li>Spatial audio prototyping</li>
-              <li>Perceptual study design</li>
+              <li>Unity 3D</li>
+              <li>Wwise</li>
+              <li>Python</li>
+              <li>R</li>
+              <li>Music Production</li>
+              <li>Spatial Audio Mixing</li>
+              <li>Audio AI</li>
             </ul>
           </section>
         </div>
@@ -76,92 +82,27 @@
               alt="Hand-drawn figure wearing headphones and mixing two records"
             />
           </div>
-          <div class="music-player" id="featured-player">
-            <button
-              class="music-toggle"
-              id="music-toggle"
-              type="button"
-              aria-label="Loading music player"
-              disabled
-            >
-              <span class="music-icon" aria-hidden="true">▶</span>
-            </button>
-            <a
-              class="track-meta"
-              id="track-meta"
-              href="https://soundcloud.com/butterflybass/butterfly-zone-x-loxxey-its-about-to-get-heavy"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="It’s About To Get Heavy on SoundCloud, opens in a new tab"
-            >
-              <span id="track-artist">Butterfly Zone × Loxxey</span>
-              <strong id="track-title">It’s About To Get Heavy</strong>
-            </a>
-            <span class="music-time" id="music-time">00:00</span>
-            <button
-              class="track-picker-toggle"
-              id="track-picker-toggle"
-              type="button"
-              aria-expanded="false"
-              aria-controls="track-menu"
-              aria-label="Choose a track. Track 1 of 3"
-            >
-              <span id="track-position">01</span>
-              <span aria-hidden="true">/</span>
-              <span id="track-total">03</span>
-            </button>
-            <ul class="track-menu" id="track-menu" aria-label="Choose a track" hidden>
-              <li>
-                <button
-                  class="track-option"
-                  type="button"
-                  aria-pressed="true"
-                  data-url="https://soundcloud.com/butterflybass/butterfly-zone-x-loxxey-its-about-to-get-heavy"
-                  data-artist="Butterfly Zone × Loxxey"
-                  data-title="It’s About To Get Heavy"
-                >
-                  <span>01</span>
-                  <span><small>Butterfly Zone × Loxxey</small><strong>It’s About To Get Heavy</strong></span>
-                </button>
-              </li>
-              <li>
-                <button
-                  class="track-option"
-                  type="button"
-                  aria-pressed="false"
-                  data-url="https://soundcloud.com/butterflybass/fred-again-shm-turn-on-the-lights-butterfly-zone-remix"
-                  data-artist="Butterfly Zone"
-                  data-title="Fred again.. &amp; SHM — Turn On The Lights again.. (Butterfly Zone Remix)"
-                >
-                  <span>02</span>
-                  <span><small>Butterfly Zone</small><strong>Turn On The Lights again.. (Remix)</strong></span>
-                </button>
-              </li>
-              <li>
-                <button
-                  class="track-option"
-                  type="button"
-                  aria-pressed="false"
-                  data-url="https://soundcloud.com/butterflybass/butterfly-zone-whispers-in-the-shadows"
-                  data-artist="Butterfly Zone"
-                  data-title="Whispers In The Shadows"
-                >
-                  <span>03</span>
-                  <span><small>Butterfly Zone</small><strong>Whispers In The Shadows</strong></span>
-                </button>
-              </li>
-            </ul>
-            <span class="sr-only" id="track-announcement" aria-live="polite"></span>
-            <span class="music-progress" aria-hidden="true"><i id="music-progress"></i></span>
+          <div class="soundcloud-player">
+            <div class="soundcloud-player__bar">
+              <div>
+                <strong>Butterfly Zone</strong>
+                <span>All public tracks</span>
+              </div>
+              <a
+                href="https://soundcloud.com/butterflybass"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open all Butterfly Zone tracks on SoundCloud in a new tab"
+              >SoundCloud ↗</a>
+            </div>
             <iframe
-              id="soundcloud-widget"
-              title="SoundCloud player for It’s About To Get Heavy"
-              width="1"
-              height="1"
+              title="Butterfly Zone public tracks on SoundCloud"
+              width="100%"
+              height="205"
               scrolling="no"
               frameborder="no"
-              allow="autoplay"
-              src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fbutterflybass%2Fbutterfly-zone-x-loxxey-its-about-to-get-heavy&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false"
+              allow="autoplay; encrypted-media"
+              src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F768979810&amp;color=%236670ff&amp;auto_play=false&amp;hide_related=true&amp;show_artwork=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false"
             ></iframe>
           </div>
         </figure>
@@ -171,8 +112,8 @@
             <p class="section-label">About / 2026</p>
             <h2>Ph.D. student at AIRIS Lab, KAIST.</h2>
             <p>
-              My publications span virtual-object sound synthesis, multichannel electronic
-              dance music perception, and music-information analysis.
+              My work spans spatial-audio perception in XR, virtual-object sound synthesis,
+              multichannel electronic dance music perception, and music-information analysis.
             </p>
             <p>
               Alongside research, I build interactive audio work and release music as
@@ -183,7 +124,12 @@
           <section class="research-index" aria-labelledby="research-title">
             <div class="research-heading">
               <p class="section-label" id="research-title">Research keywords</p>
-              <p class="research-keywords">Psychoacoustics · Auditory AR/VR · Spatial audio</p>
+              <ul class="research-keywords">
+                <li>Psychoacoustics</li>
+                <li>Auditory Perception in XR</li>
+                <li>Spatial Audio in XR</li>
+                <li>AI Timbre Generation</li>
+              </ul>
             </div>
 
             <div class="project-tabs" role="group" aria-label="Selected work categories">
@@ -231,35 +177,98 @@
               tabindex="-1"
             >
               <h2 id="project-title-01">Publications</h2>
-              <ol class="entry-list publication-list">
-                <li>
-                  <span>2026</span>
-                  <a
-                    href="https://airislab.kaist.ac.kr/publication/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Material Foley Timbre Transfer for Virtual Meta Object Interactions Using Diffusion Model, opens in a new tab"
-                  >Material Foley Timbre Transfer for Virtual Meta Object Interactions Using Diffusion Model</a>
-                </li>
-                <li>
-                  <span>2025</span>
-                  <a
-                    href="https://doi.org/10.1121/10.0041413"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Perceptual Dimension of Multi-Channel Electronic Dance Music, opens in a new tab"
-                  >Perceptual Dimension of Multi-Channel Electronic Dance Music</a>
-                </li>
-                <li>
-                  <span>2024</span>
-                  <a
-                    href="https://airislab.kaist.ac.kr/aes-new-york-2024/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Unveiling the Impact of K-Pop Song Lyrics on Adolescent Self-Harm Rates, opens in a new tab"
-                  >K-Pop Song Lyrics and Adolescent Self-Harm Rates</a>
-                </li>
-              </ol>
+              <div class="publication-switcher" role="tablist" aria-label="Publication categories">
+                <button
+                  class="publication-category is-active"
+                  id="publication-tab-international"
+                  type="button"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="publication-group-international"
+                  data-publication-group="publication-group-international"
+                >International <span>03</span></button>
+                <button
+                  class="publication-category"
+                  id="publication-tab-domestic"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="publication-group-domestic"
+                  data-publication-group="publication-group-domestic"
+                  tabindex="-1"
+                >Domestic <span>02</span></button>
+              </div>
+
+              <section
+                class="publication-group is-active"
+                id="publication-group-international"
+                role="tabpanel"
+                aria-labelledby="publication-tab-international"
+              >
+                <h3>International Conferences</h3>
+                <details class="publication-entry" name="international-publication">
+                  <summary>
+                    <time datetime="2026">2026</time>
+                    <span>Effect of spatialized auditory traces on the sense of co-presence in a virtual reality museum</span>
+                  </summary>
+                  <div class="publication-meta">
+                    <p>2026 ASJ × ASK Autumn Meeting.</p>
+                  </div>
+                </details>
+                <details class="publication-entry" name="international-publication">
+                  <summary>
+                    <time datetime="2025">2025</time>
+                    <span>Perceptual Dimension of Multi-Channel Electronic Dance Music: Repertory Grid Analysis</span>
+                  </summary>
+                  <div class="publication-meta">
+                    <p>Jongho Lee, Sungyoung Kim</p>
+                    <p>189th Meeting of the Acoustical Society of America (ASA), 2025.</p>
+                    <a href="https://doi.org/10.1121/10.0041413" target="_blank" rel="noreferrer">Record ↗</a>
+                  </div>
+                </details>
+                <details class="publication-entry" name="international-publication">
+                  <summary>
+                    <time datetime="2024">2024</time>
+                    <span>Unveiling the Impact of K-Pop Song Lyrics on Adolescent Self-Harm Rates: A Pilot Study of Gender Disparities</span>
+                  </summary>
+                  <div class="publication-meta">
+                    <p>Jongho Lee, Yideun Park, Sungjoon Kim, Hyejin Kim, Sunjae Jung, Sungyoung Kim</p>
+                    <p>Audio Engineering Society 157th Convention, 2024.</p>
+                    <a href="https://airislab.kaist.ac.kr/aes-new-york-2024/" target="_blank" rel="noreferrer">Record ↗</a>
+                  </div>
+                </details>
+              </section>
+
+              <section
+                class="publication-group"
+                id="publication-group-domestic"
+                role="tabpanel"
+                aria-labelledby="publication-tab-domestic"
+                hidden
+              >
+                <h3>Domestic Conferences</h3>
+                <details class="publication-entry" name="domestic-publication">
+                  <summary>
+                    <time datetime="2026">2026</time>
+                    <span>Material Foley Timbre Transfer For Virtual Meta Object Interactions Using Diffusion Model</span>
+                  </summary>
+                  <div class="publication-meta">
+                    <p>Jongho Lee, Kirak Kim, Sungyoung Kim</p>
+                    <p>Korean Society for Music Informatics 2026 Conference, 2026.</p>
+                    <a href="https://airislab.kaist.ac.kr/publication/" target="_blank" rel="noreferrer">Record ↗</a>
+                  </div>
+                </details>
+                <details class="publication-entry" name="domestic-publication">
+                  <summary>
+                    <time datetime="2024">2024</time>
+                    <span>Unveiling the Impact of K-Pop Song Lyrics on Adolescent Self-Harm Rates A Pilot Study of Gender Disparities</span>
+                  </summary>
+                  <div class="publication-meta">
+                    <p>Yideun Park, Lee JongHo, Seungjun Kim, Seungjae Jeong, Hyejin Kim, Sungyoung Kim</p>
+                    <p>Proceedings of the Acoustical Society of Korea 2024 Spring Meeting, 2024.</p>
+                  </div>
+                </details>
+              </section>
             </article>
 
             <article
@@ -313,7 +322,7 @@
               <p class="project-status">Profile</p>
               <h2 id="project-title-03">CV</h2>
               <p class="cv-summary">Ph.D. student at AIRIS Lab, KAIST.</p>
-              <p class="cv-keywords">Psychoacoustics · Auditory AR/VR · Spatial audio</p>
+              <p class="cv-keywords">Psychoacoustics · Auditory Perception in XR · Spatial Audio in XR · AI Timbre Generation</p>
               <div class="cv-links" aria-label="Curriculum vitae links">
                 <a
                   href="https://kr.linkedin.com/in/jongho-lee-b45a20104"

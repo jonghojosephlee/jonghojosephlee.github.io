@@ -8,10 +8,11 @@ A minimal, single-screen research portfolio for GitHub Pages.
 
 ## Structure
 
-- `index.html` — biography, verified publications, artworks, CV links, and music player
+- `index.html` — biography, conference publications, artworks, CV links, and SoundCloud profile player
 - `styles.css` — black editorial layout, responsive rules, and hover states
-- `script.js` — accessible section switching and SoundCloud player controls
+- `script.js` — accessible section and publication-category switching
 - `assets/dj-sketch.png` — user-provided DJ drawing used as the central visual
 
 The page deliberately avoids unpublished results, participant information, and third-party
-research figures. It presents only public publications, artworks, profile links, and music.
+research figures. The official SoundCloud profile embed supplies the real waveform and current
+public track catalog without duplicating track data in the repository.
