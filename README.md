@@ -1,15 +1,17 @@
 # Jongho Lee — Portfolio
 
-Interactive single-screen research portfolio for GitHub Pages. The central meta-object is an
-original visual made for this site; selecting `01–04` reveals each research direction without
-turning the homepage into a long scrolling résumé.
+A minimal, single-screen research portfolio for GitHub Pages.
 
 - Public URL: `https://jonghojosephlee.github.io/`
 - Intended repository: `jonghojosephlee/jonghojosephlee.github.io`
-- No unpublished study results, participant information, private contact details, or third-party research figures are included.
+- Preview locally with any static file server.
 
-## Update
+## Structure
 
-Edit `index.html` for the biography and research lines, `styles.css` for the one-screen scene, and
-`script.js` for the project selector, motion, and user-triggered material response sound. The hero
-asset is stored at `assets/meta-object.png`.
+- `index.html` — biography, verified publications, artworks, CV links, and music player
+- `styles.css` — black editorial layout, responsive rules, and hover states
+- `script.js` — accessible section switching and SoundCloud player controls
+- `assets/dj-sketch.png` — user-provided DJ drawing used as the central visual
+
+The page deliberately avoids unpublished results, participant information, and third-party
+research figures. It presents only public publications, artworks, profile links, and music.

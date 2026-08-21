@@ -1,142 +1,326 @@
-const stage = document.querySelector(".object-stage");
-const metaObject = document.querySelector(".meta-object");
-const pulseControl = document.querySelector(".pulse-control");
-const projectNodes = [...document.querySelectorAll(".research-node")];
-const activeNote = document.querySelector(".active-note");
-const noteIndex = document.querySelector("#note-index");
-const noteStatus = document.querySelector("#note-status");
-const noteTitle = document.querySelector("#note-title");
-const noteDescription = document.querySelector("#note-description");
+const sectionTriggers = [...document.querySelectorAll("[data-panel-trigger]")];
+const projectPanels = [...document.querySelectorAll(".project-panel")];
+const projectPanelGroup = document.querySelector(".project-panels");
+const contextPanel = document.querySelector(".context");
+const projectClose = document.querySelector(".project-close");
 const year = document.querySelector("#year");
-const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-let audioContext;
+const compactLayout = window.matchMedia("(max-width: 1079px)");
+let projectOpener = null;
 
 if (year) year.textContent = new Date().getFullYear();
 
-const playMaterialSound = async () => {
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContext) return;
+const closeProjectOverlay = (restoreFocus = true) => {
+  if (!projectPanelGroup?.classList.contains("is-open")) return;
 
-  audioContext ??= new AudioContext();
-  if (audioContext.state === "suspended") await audioContext.resume();
+  projectPanelGroup.classList.remove("is-open");
+  projectPanelGroup.removeAttribute("role");
+  projectPanelGroup.removeAttribute("aria-modal");
+  projectPanelGroup.removeAttribute("aria-labelledby");
+  document.body.classList.remove("project-overlay-open");
 
-  const now = audioContext.currentTime + 0.01;
-  const master = audioContext.createGain();
-  const color = audioContext.createBiquadFilter();
+  if (restoreFocus && projectOpener) projectOpener.focus();
+};
 
-  master.gain.setValueAtTime(0.0001, now);
-  master.gain.exponentialRampToValueAtTime(0.15, now + 0.012);
-  master.gain.exponentialRampToValueAtTime(0.0001, now + 1.18);
-  color.type = "lowpass";
-  color.frequency.setValueAtTime(3100, now);
-  color.frequency.exponentialRampToValueAtTime(1200, now + 1.1);
-  color.Q.value = 0.7;
-  color.connect(master);
-  master.connect(audioContext.destination);
+const openProjectOverlay = (trigger) => {
+  if (!compactLayout.matches || !projectPanelGroup || !projectClose) return;
 
-  const voices = [
-    { type: "sine", start: 196, end: 132, delay: 0, duration: 1.08, level: 0.19 },
-    { type: "sine", start: 594, end: 471, delay: 0.025, duration: 0.78, level: 0.085 },
-    { type: "triangle", start: 844, end: 704, delay: 0.07, duration: 0.54, level: 0.035 },
-  ];
+  const activePanel = document.querySelector(`#${trigger.getAttribute("aria-controls")}`);
+  const activeTitle = activePanel?.querySelector("h2");
+  projectOpener = trigger;
+  projectPanelGroup.classList.add("is-open");
+  projectPanelGroup.setAttribute("role", "dialog");
+  projectPanelGroup.setAttribute("aria-modal", "true");
+  if (activeTitle?.id) projectPanelGroup.setAttribute("aria-labelledby", activeTitle.id);
+  document.body.classList.add("project-overlay-open");
+  window.setTimeout(() => projectClose.focus(), 120);
+};
 
-  voices.forEach((voice) => {
-    const oscillator = audioContext.createOscillator();
-    const envelope = audioContext.createGain();
-    const startAt = now + voice.delay;
-    const stopAt = startAt + voice.duration;
+const selectSection = (trigger, openDetails = false) => {
+  const panelId = trigger.getAttribute("aria-controls");
 
-    oscillator.type = voice.type;
-    oscillator.frequency.setValueAtTime(voice.start, startAt);
-    oscillator.frequency.exponentialRampToValueAtTime(voice.end, stopAt);
-    envelope.gain.setValueAtTime(0.0001, startAt);
-    envelope.gain.exponentialRampToValueAtTime(voice.level, startAt + 0.008);
-    envelope.gain.exponentialRampToValueAtTime(0.0001, stopAt);
-    oscillator.connect(envelope).connect(color);
-    oscillator.start(startAt);
-    oscillator.stop(stopAt + 0.02);
+  contextPanel?.classList.toggle("is-cv", panelId === "project-panel-03");
+
+  sectionTriggers.forEach((item) => {
+    const selected = item === trigger;
+    item.classList.toggle("is-active", selected);
+    item.setAttribute("aria-expanded", String(selected));
   });
 
-  const noiseLength = Math.floor(audioContext.sampleRate * 0.12);
-  const noiseBuffer = audioContext.createBuffer(1, noiseLength, audioContext.sampleRate);
-  const noiseData = noiseBuffer.getChannelData(0);
-  for (let index = 0; index < noiseLength; index += 1) {
-    noiseData[index] = (Math.random() * 2 - 1) * Math.exp((-7 * index) / noiseLength);
+  projectPanels.forEach((panel) => {
+    const selected = panel.id === panelId;
+    panel.classList.toggle("is-active", selected);
+    panel.hidden = !selected;
+  });
+
+  if (openDetails) openProjectOverlay(trigger);
+};
+
+sectionTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", () => selectSection(trigger, true));
+});
+
+projectClose?.addEventListener("click", () => closeProjectOverlay());
+
+document.addEventListener("keydown", (event) => {
+  if (!projectPanelGroup?.classList.contains("is-open")) return;
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeProjectOverlay();
   }
 
-  const noise = audioContext.createBufferSource();
-  const noiseBand = audioContext.createBiquadFilter();
-  const noiseGain = audioContext.createGain();
-  noise.buffer = noiseBuffer;
-  noiseBand.type = "bandpass";
-  noiseBand.frequency.value = 2600;
-  noiseBand.Q.value = 1.4;
-  noiseGain.gain.value = 0.05;
-  noise.connect(noiseBand).connect(noiseGain).connect(color);
-  noise.start(now);
-};
+  if (event.key === "Tab") {
+    const activePanel = projectPanels.find((panel) => !panel.hidden);
+    const focusable = [
+      projectClose,
+      ...(activePanel?.querySelectorAll('a[href], button:not([disabled])') || []),
+    ].filter(Boolean);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
 
-const pulseObject = () => {
-  metaObject.classList.remove("is-pulsing");
-  stage.classList.remove("is-awake");
-  void metaObject.offsetWidth;
-  metaObject.classList.add("is-pulsing");
-  stage.classList.add("is-awake");
-  void playMaterialSound();
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  }
+});
 
-  window.setTimeout(() => {
-    metaObject.classList.remove("is-pulsing");
-    stage.classList.remove("is-awake");
-  }, 1100);
-};
+projectPanelGroup?.addEventListener("click", (event) => {
+  if (event.target === projectPanelGroup) closeProjectOverlay();
+});
 
-metaObject?.addEventListener("click", pulseObject);
-pulseControl?.addEventListener("click", pulseObject);
-
-const showProject = (node) => {
-  projectNodes.forEach((item) => {
-    const active = item === node;
-    item.classList.toggle("is-active", active);
-    item.setAttribute("aria-pressed", String(active));
+const syncCompactState = () => {
+  sectionTriggers.forEach((trigger) => {
+    if (compactLayout.matches) trigger.setAttribute("aria-haspopup", "dialog");
+    else trigger.removeAttribute("aria-haspopup");
   });
 
-  activeNote.classList.add("is-changing");
-  stage.classList.add("is-awake");
-
-  window.setTimeout(() => {
-    noteIndex.textContent = node.dataset.index;
-    noteStatus.textContent = node.dataset.status;
-    noteTitle.textContent = node.dataset.title;
-    noteDescription.textContent = node.dataset.description;
-    activeNote.classList.remove("is-changing");
-  }, 110);
-
-  window.setTimeout(() => stage.classList.remove("is-awake"), 520);
+  if (!compactLayout.matches) closeProjectOverlay(false);
 };
 
-projectNodes.forEach((node) => {
-  node.addEventListener("click", () => showProject(node));
-  node.addEventListener("focus", () => showProject(node));
-  node.addEventListener("pointerenter", () => {
-    if (finePointer.matches) showProject(node);
+compactLayout.addEventListener("change", syncCompactState);
+syncCompactState();
+
+const featuredPlayer = document.querySelector("#featured-player");
+const musicToggle = document.querySelector("#music-toggle");
+const musicIcon = document.querySelector(".music-icon");
+const musicTime = document.querySelector("#music-time");
+const musicProgress = document.querySelector("#music-progress");
+const soundcloudFrame = document.querySelector("#soundcloud-widget");
+const trackMeta = document.querySelector("#track-meta");
+const trackArtist = document.querySelector("#track-artist");
+const trackTitle = document.querySelector("#track-title");
+const trackPickerToggle = document.querySelector("#track-picker-toggle");
+const trackMenu = document.querySelector("#track-menu");
+const trackOptions = [...document.querySelectorAll(".track-option")];
+const trackPosition = document.querySelector("#track-position");
+const trackTotal = document.querySelector("#track-total");
+const trackAnnouncement = document.querySelector("#track-announcement");
+let activeTrackIndex = Math.max(
+  0,
+  trackOptions.findIndex((item) => item.getAttribute("aria-pressed") === "true"),
+);
+let trackIsPlaying = false;
+let trackDuration = 0;
+let widget = null;
+
+const currentTrack = () => {
+  const option = trackOptions[activeTrackIndex];
+  if (!option) return null;
+
+  return {
+    url: option.dataset.url,
+    artist: option.dataset.artist,
+    title: option.dataset.title,
+  };
+};
+
+const formatTime = (milliseconds) => {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = String(totalSeconds % 60).padStart(2, "0");
+  return `${minutes}:${seconds}`;
+};
+
+const resetProgress = () => {
+  trackIsPlaying = false;
+  trackDuration = 0;
+  if (musicTime) musicTime.textContent = "00:00";
+  if (musicProgress) musicProgress.style.transform = "scaleX(0)";
+};
+
+const renderPlayerState = () => {
+  const track = currentTrack();
+  if (!track || !musicToggle || !musicIcon) return;
+
+  musicIcon.textContent = trackIsPlaying ? "Ⅱ" : "▶";
+  musicToggle.setAttribute(
+    "aria-label",
+    `${trackIsPlaying ? "Pause" : "Play"} ${track.title} by ${track.artist}`,
+  );
+};
+
+const renderTrack = (index, announce = false) => {
+  activeTrackIndex = index;
+  const track = currentTrack();
+  if (!track) return null;
+
+  trackOptions.forEach((item, itemIndex) => {
+    item.setAttribute("aria-pressed", String(itemIndex === index));
+  });
+
+  if (trackMeta) {
+    trackMeta.href = track.url;
+    trackMeta.setAttribute(
+      "aria-label",
+      `${track.title} by ${track.artist} on SoundCloud, opens in a new tab`,
+    );
+  }
+  if (trackArtist) trackArtist.textContent = track.artist;
+  if (trackTitle) trackTitle.textContent = track.title;
+  if (soundcloudFrame) soundcloudFrame.title = `SoundCloud player for ${track.title}`;
+  if (trackPosition) trackPosition.textContent = String(index + 1).padStart(2, "0");
+  if (trackTotal) trackTotal.textContent = String(trackOptions.length).padStart(2, "0");
+  trackPickerToggle?.setAttribute(
+    "aria-label",
+    `Choose a track. Track ${index + 1} of ${trackOptions.length}: ${track.title}`,
+  );
+  if (announce && trackAnnouncement) {
+    trackAnnouncement.textContent = `Selected ${track.title} by ${track.artist}`;
+  }
+
+  resetProgress();
+  featuredPlayer?.setAttribute("aria-busy", "true");
+  if (musicToggle) {
+    musicToggle.disabled = true;
+    musicToggle.setAttribute("aria-label", `Loading ${track.title}`);
+  }
+  return track;
+};
+
+const setTrackMenuOpen = (open, moveFocus = false) => {
+  if (!trackMenu || !trackPickerToggle) return;
+
+  trackMenu.hidden = !open;
+  trackPickerToggle.setAttribute("aria-expanded", String(open));
+  if (open && moveFocus) {
+    window.requestAnimationFrame(() => trackOptions[activeTrackIndex]?.focus());
+  }
+};
+
+const enableExternalPlayerFallback = () => {
+  const track = currentTrack();
+  if (!track || !musicToggle || !musicIcon) return;
+
+  featuredPlayer?.setAttribute("aria-busy", "false");
+  musicToggle.disabled = false;
+  musicIcon.textContent = "↗";
+  musicToggle.setAttribute(
+    "aria-label",
+    `Open ${track.title} by ${track.artist} on SoundCloud`,
+  );
+};
+
+const enableWidgetControls = () => {
+  if (!widget || !musicToggle) return;
+
+  featuredPlayer?.setAttribute("aria-busy", "false");
+  musicToggle.disabled = false;
+  widget.getDuration((duration) => {
+    trackDuration = duration || 0;
+  });
+  renderPlayerState();
+};
+
+renderTrack(activeTrackIndex);
+
+trackPickerToggle?.addEventListener("click", () => {
+  setTrackMenuOpen(trackMenu?.hidden ?? false, true);
+});
+
+trackOptions.forEach((option, index) => {
+  option.addEventListener("click", () => {
+    if (index === activeTrackIndex) {
+      setTrackMenuOpen(false);
+      trackPickerToggle?.focus();
+      return;
+    }
+
+    widget?.pause();
+    const track = renderTrack(index, true);
+    setTrackMenuOpen(false);
+    trackPickerToggle?.focus();
+    if (track && widget) {
+      widget.load(track.url, {
+        auto_play: false,
+        hide_related: true,
+        show_comments: false,
+        show_user: false,
+        show_reposts: false,
+        visual: false,
+        callback: enableWidgetControls,
+      });
+    } else {
+      enableExternalPlayerFallback();
+    }
   });
 });
 
-document.addEventListener("pointermove", (event) => {
-  if (!finePointer.matches || reducedMotion.matches) return;
-
-  const x = event.clientX / window.innerWidth - 0.5;
-  const y = event.clientY / window.innerHeight - 0.5;
-  stage.style.setProperty("--mx", `${x * 10}px`);
-  stage.style.setProperty("--my", `${y * 8}px`);
-  stage.style.setProperty("--ry", `${x * 2.4}deg`);
-  stage.style.setProperty("--rx", `${y * -2.1}deg`);
+document.addEventListener("pointerdown", (event) => {
+  if (!trackMenu?.hidden && !featuredPlayer?.contains(event.target)) {
+    setTrackMenuOpen(false);
+  }
 });
 
-document.documentElement.addEventListener("mouseleave", () => {
-  stage.style.setProperty("--mx", "0px");
-  stage.style.setProperty("--my", "0px");
-  stage.style.setProperty("--ry", "0deg");
-  stage.style.setProperty("--rx", "0deg");
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && trackMenu && !trackMenu.hidden) {
+    event.preventDefault();
+    setTrackMenuOpen(false);
+    trackPickerToggle?.focus();
+  }
 });
+
+if (window.SC?.Widget && soundcloudFrame && musicToggle) {
+  widget = window.SC.Widget(soundcloudFrame);
+  const events = window.SC.Widget.Events;
+
+  widget.bind(events.READY, enableWidgetControls);
+
+  widget.bind(events.PLAY, () => {
+    trackIsPlaying = true;
+    renderPlayerState();
+  });
+
+  widget.bind(events.PAUSE, () => {
+    trackIsPlaying = false;
+    renderPlayerState();
+  });
+
+  widget.bind(events.FINISH, () => {
+    resetProgress();
+    renderPlayerState();
+  });
+
+  widget.bind(events.PLAY_PROGRESS, (progress) => {
+    const currentPosition = progress.currentPosition || 0;
+    if (musicTime) musicTime.textContent = formatTime(currentPosition);
+    if (musicProgress) {
+      const ratio = trackDuration ? Math.min(currentPosition / trackDuration, 1) : 0;
+      musicProgress.style.transform = `scaleX(${ratio})`;
+    }
+  });
+
+  musicToggle.addEventListener("click", () => {
+    if (trackIsPlaying) widget.pause();
+    else widget.play();
+  });
+} else {
+  enableExternalPlayerFallback();
+  musicToggle?.addEventListener("click", () => {
+    const track = currentTrack();
+    if (track) window.open(track.url, "_blank", "noopener,noreferrer");
+  });
+}
